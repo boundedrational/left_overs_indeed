@@ -209,12 +209,7 @@ for element in states
               end
 
               begin
-                 data.each do |record|
-                    if ScraperWiki.select("long_description from data where `id=(?)", [ident]).empty? 
-                      ScraperWiki.save_sqlite(['id'], record)
-                    end
-                 end
-
+                  ScraperWiki.save_sqlite(['id'], record)
               rescue
               end
 
