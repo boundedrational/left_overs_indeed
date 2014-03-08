@@ -59,7 +59,6 @@ for element in states
 
   while j<=resultslimit
     g=0        
-    if j==0
              while c<=resultslimit
                 long_url= "http://fullrss.net/a/http/rss.indeed.com/rss?q=&l=" + url_state + "&sort=date&start="+c.to_s()
                 puts long_url
@@ -100,16 +99,17 @@ for element in states
                   begin
                    ht[identification]<< long_content
                   rescue
+                  end
+                  begin
                    ht[identification]<< text
+                  rescue
                   end
                   tt[identification]<< timing
                   geo[identification]<< map
   
                 end
-                
 
              end
-       end
 
             
  
@@ -256,7 +256,7 @@ for element in states
 
            end
       end
-   end
+   
      j=j + resultsperpage
   end
 end
