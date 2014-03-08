@@ -224,8 +224,10 @@ for element in states
                  begin
                  puts"?!?!"
                  db = SQLite3::Database.open "data.db"
-                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
-                 stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
+                 stmt = db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") 
+                 data.each do |observation|
+                  stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
+                end
                  rescue SQLite3::Exception => e 
     
                     puts "Exception occured"
@@ -238,9 +240,11 @@ for element in states
 end
                  begin
                  db = SQLite3::Database.open "data.db"
-                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
-                 stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
-                 rescue SQLite3::Exception => e 
+                 stmt = db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") 
+                 data.each do |observation|
+                  stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
+                 end
+                rescue SQLite3::Exception => e 
     
                     puts "Exception occured"
                     puts e
