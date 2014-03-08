@@ -146,8 +146,8 @@ for element in states
  
     
    pageurl = helpurl+"&start="+j.to_s()
-    page = Nokogiri::HTML(open(URI::encode(pageurl)))
-    page.search("div[@itemtype='http://schema.org/JobPosting']").each do |node|
+   page = Nokogiri::HTML(open(URI::encode(pageurl)))
+   page.search("div[@itemtype='http://schema.org/JobPosting']").each do |node|
 
        if node.count > 0
 
@@ -188,7 +188,7 @@ for element in states
             "geo"=>'',
 
 
-          }
+           }
           
   
          
@@ -213,21 +213,21 @@ for element in states
             
                 s= Data::sqliteexecute("select long_description from swdata where id=(?)", [ident])
                 Data::commit()
-              puts s              
-              k = s["data"]
-              k=k.to_s()
-              if k.length<10
-                puts "..."
-                ScraperWiki::save_sqlite(["id"], data)
-              end
+                puts s              
+                k = s["data"]
+                k=k.to_s()
+                if k.length<10
+                  puts "..."
+                  ScraperWiki::save_sqlite(["id"], data)
+                end
               rescue
                  begin
                  puts"?!?!"
                  db = SQLite3::Database.open "data.db"
                  stmt = db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") 
                  data.each do |observation|
-                  stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
-                end
+                   stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
+                 end
                  rescue SQLite3::Exception => e 
     
                     puts "Exception occured"
@@ -236,15 +236,15 @@ for element in states
                  ensure
                     db.close if db
                  end
-  end
-end
-                 begin
+               end
+
+               begin
                  db = SQLite3::Database.open "data.db"
                  stmt = db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") 
                  data.each do |observation|
-                  stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
+                    stmt.execute( observation['jobtitle'], observation['employer'], observation['location'],observation['description'], observation['salary'], observation['state'], observation['date'], observation['current_time'], observation['long_description'], observation['long_timing'], observation['id'], observation['zip'], observation['srcid'], observation['efccid'], observation['cmpid'], observation['geo'] )
                  end
-                rescue SQLite3::Exception => e 
+               rescue SQLite3::Exception => e 
     
                     puts "Exception occured"
                     puts e
