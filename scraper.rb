@@ -8,6 +8,7 @@ require 'nokogiri'
 require 'net/http'
 require 'ostruct'
 require 'mechanize'
+ require 'sqlite3'
 require 'sanitize'
 
 
@@ -210,8 +211,8 @@ for element in states
 
               begin
             
-                s= ScraperWiki::sqliteexecute("select long_description from swdata where id=(?)", [ident])
-                ScraperWiki::commit()
+                s= Data::sqliteexecute("select long_description from swdata where id=(?)", [ident])
+                Data::commit()
               puts s              
               k = s["data"]
               k=k.to_s()
@@ -220,9 +221,33 @@ for element in states
                 ScraperWiki::save_sqlite(["id"], data)
               end
               rescue
+                 begin
                  puts"?!?!"
-                  ScraperWiki::save_sqlite(["id"], data)
-               
+                 db = SQLite3::Database.open "data.db"
+                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo" ) VALUES( ?, ?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
+                 stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
+                 rescue SQLite3::Exception => e 
+    
+                    puts "Exception occured"
+                    puts e
+    
+                 ensure
+                    db.close if db
+                 end
+  end
+end
+                 begin
+                 db = SQLite3::Database.open "data.db"
+                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo" ) VALUES( ?, ?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
+                 stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
+                 rescue SQLite3::Exception => e 
+    
+                    puts "Exception occured"
+                    puts e
+    
+                 ensure
+                    db.close if db
+                 end               
              end
 
            end
