@@ -224,7 +224,7 @@ for element in states
                  begin
                  puts"?!?!"
                  db = SQLite3::Database.open "data.db"
-                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo" ) VALUES( ?, ?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
+                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
                  stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
                  rescue SQLite3::Exception => e 
     
@@ -238,7 +238,7 @@ for element in states
 end
                  begin
                  db = SQLite3::Database.open "data.db"
-                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo" ) VALUES( ?, ?, ?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
+                 db.prepare("INSERT INTO data( jobtitle, employer, location, description, salary, state, date, current_time, long_description, long_timing, id , zip ,srcid, efccid, cmpid, geo) VALUES( ?, ?,?,?, ?, ?, ?,?,?,?,?,?,?,?,?,?,? )") do |stmt|
                  stmt.execute( data['jobtitle'], data['employer'], data['location'],data['description'], data['salary'], data['state'], data['date'], data['current_time'], data['long_description'], data['long_timing'], data['id'], data['zip'], data['srcid'], data['efccid'], data['cmpid'], data['geo'] )
                  rescue SQLite3::Exception => e 
     
