@@ -212,13 +212,11 @@ for element in states
                  data.each do |record|
                  if ScraperWiki.select("long_description from data where `id=(?)", [ident]).empty? 
                    ScraperWiki.save_sqlite(['id'], record)
-                 else
-                  puts "Skipping already saved record " + record['title']
                  end
 
               rescue
                  
-                  SQLite3::Exception => e 
+                    SQLite3::Exception => e 
                     puts "Exception occured"
                     puts e
     
