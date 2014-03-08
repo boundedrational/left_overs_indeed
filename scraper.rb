@@ -216,12 +216,7 @@ for element in states
                  end
 
               rescue
-                 
-                    SQLite3::Exception => e 
-                    puts "Exception occured"
-                    puts e
-    
-               end
+              end
 
              
              end
