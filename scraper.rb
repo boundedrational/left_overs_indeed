@@ -1,4 +1,3 @@
-#require 'scraperwiki'
 # encoding: utf-8
 
 # Indeed.com
@@ -10,6 +9,7 @@ require 'ostruct'
 require 'mechanize'
  require 'sqlite3'
 require 'sanitize'
+require 'scraperwiki'
 
 
 queries=[]
