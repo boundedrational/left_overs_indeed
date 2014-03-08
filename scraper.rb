@@ -208,7 +208,7 @@ for element in states
               end
 
               
-                  puts data["jobtitle"]
+                  puts data
                   ScraperWiki.save_sqlite(['id'], data)
                   puts "success"
 
