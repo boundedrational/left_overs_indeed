@@ -66,7 +66,6 @@ for element in states
                 c=c+resultsperpage
                 puts c
                 scraping.css("item").each do |result|
-                  puts "try"
                   identification=result.css('link').inner_html
                   identification.to_s()
                   identification=identification.split("-").last
@@ -209,7 +208,9 @@ for element in states
               end
 
               begin
-                  ScraperWiki.save_sqlite(['id'], record)
+                  puts data["jobtitle"]
+                  ScraperWiki.save_sqlite(['id'], data)
+                  
               rescue
               end
 
